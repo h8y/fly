@@ -1,0 +1,24 @@
+payload:  
+  - DOMAIN-SUFFIX,dns.quad9.net
+  - DOMAIN-SUFFIX,max.rethinkdns.com
+  - DOMAIN-SUFFIX,sky.rethinkdns.com
+  - DOMAIN-SUFFIX,dns.cloudflare.com
+  - DOMAIN-SUFFIX,dns.bebasid.com
+  - DOMAIN-SUFFIX,0ms.dev
+  - DOMAIN-SUFFIX,dns.decloudus.com+
+  - DOMAIN-SUFFIX,wikimedia-dns.org
+  - DOMAIN-SUFFIX,doh.applied-privacy.net
+  - DOMAIN-SUFFIX,private.canadianshield.cira.ca
+  - DOMAIN-SUFFIX,dns.controld.com
+  - DOMAIN-SUFFIX,dns.switch.ch
+  - DOMAIN-SUFFIX,dns.oszx.co
+  - DOMAIN-SUFFIX,jp.tiarap.org
+  - 9.9.9.9/32
+  - 149.112.112.112/32
+  - 101.101.101.101/32
+  - 208.67.222.222/32
+  - 208.67.220.220/32
+  - 208.67.222.123/32
+  - 1.0.0.1/32
+  - 1.1.1.1/32
+  
