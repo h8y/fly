@@ -1,0 +1,14 @@
+host-suffix, hsbcfts.com.cn, HSBC
+host-suffix, hsbc.com.cn, HSBC
+host-suffix, hsbc.com.hk, HSBC
+host-suffix, hsbc.com.us, HSBC
+host-suffix, hsbc.com.mx, HSBC
+host-suffix, hsbc.com.sg, HSBC
+host-suffix, hsbc.co.uk, HSBC
+host-suffix, hsbc.com, HSBC
+# host-suffix,eum-appdynamics.com,HSBC
+host-suffix,hsbc.edge.sdk.awswaf.com,HSBC
+host-suffix,hsbc.f2cbffe2.us-west-1.token.awswaf.com,HSBC
+
+# zn1x4bay9t3d099pf-hsbcdigital.siteintercept.qualtrics.com
+# eapi.preferences.prod.ap-east-1.vam-hk.cloud1.vv1865.com
