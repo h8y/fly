@@ -813,7 +813,8 @@ var flag = 1
 
 // retry with new UA, default use shadowrocket
 var PLockRequest = PLockServer == 1 || PRelayLock == 1
-var PAsyncLock = PLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
+var PAsyncLock = PLockRequest // 锁定请求统一走异步收口；纯 IP 节点不会触发 DNS 请求
+var PLockTask = typeof($task) != "undefined" && typeof($task.fetch) == "function"
 
 if (UARetry && !inRetry && version>920) {
   $notify("⚠️ 将尝试使用其他 UA, 重新获取订阅内容","⚠️ 如仍旧无有效内容，请自行与节点提供商联系","⚠️ 本次尝试使用 User-Agent 为 ⬇️\n\n"+UA_Retry)
@@ -1598,6 +1599,10 @@ function ResolveIPv4(host) {
     return Promise.resolve(saved)
   }
   if (ResolveCache[host] != undefined) { return Promise.resolve(ResolveCache[host]) }
+  if (!PLockTask) {
+    ResolveCache[host] = ""
+    return Promise.reject("当前环境不支持 $task.fetch，无法解析锁定域名: " + host)
+  }
   var url = PLockDoh.replace("{host}",encodeURIComponent(host)).replace("HOST",encodeURIComponent(host))
   return $task.fetch({url:url, method:"GET", headers:{"Accept":"application/dns-json"}}).then(function(resp) {
     var body = resp.body || resp
