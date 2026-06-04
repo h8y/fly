@@ -15,12 +15,14 @@ HOST-SUFFIX,xiaohu8.com,PolicyTiger
 HOST-SUFFIX,zhijianfengyi.cn,PolicyTiger
 HOST-SUFFIX,zhijianfengyi.com,PolicyTiger
 
+
 # 官方站点 / 区域站
 HOST-SUFFIX,tigerbrokers.com,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.sg,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.hk,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.au,PolicyTiger
 HOST-SUFFIX,tigertrade.app,PolicyTiger
+HOST-SUFFIX,skytigris.cn,PolicyTiger
 
 # 行情 / 新闻 / Web API，网页源码里能看到
 # HOST-SUFFIX,skytigris.cn,PolicyTiger
