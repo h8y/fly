@@ -1,0 +1,27 @@
+# Tiger Brokers / Tiger Trade / 老虎证券
+
+# MetaCubeX / v2fly 已覆盖
+DOMAIN-SUFFIX,itiger.com
+DOMAIN-SUFFIX,itigerup.com
+DOMAIN-SUFFIX,itigergrowth.com
+DOMAIN-SUFFIX,itigergrowtha.com
+
+# LM-Firefly / blackmatrix7 覆盖
+DOMAIN-SUFFIX,laohu8.com
+DOMAIN-SUFFIX,tigerbbs.cn
+DOMAIN-SUFFIX,tigerbbs.com
+DOMAIN-SUFFIX,tigerfintech.com
+DOMAIN-SUFFIX,xiaohu8.com
+DOMAIN-SUFFIX,zhijianfengyi.cn
+DOMAIN-SUFFIX,zhijianfengyi.com
+
+# 官方站点 / 区域站
+DOMAIN-SUFFIX,tigerbrokers.com
+DOMAIN-SUFFIX,tigerbrokers.com.sg
+DOMAIN-SUFFIX,tigerbrokers.com.hk
+DOMAIN-SUFFIX,tigerbrokers.com.au
+DOMAIN-SUFFIX,tigertrade.app
+
+# 行情 / 新闻 / Web API，网页源码里能看到
+# DOMAIN-SUFFIX,skytigris.cn
+# DOMAIN-SUFFIX,ttm.financial
