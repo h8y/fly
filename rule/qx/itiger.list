@@ -1,29 +1,34 @@
-# Tiger Brokers / Tiger Trade / 老虎证券
+# === 老虎证券 (Tiger Brokers / Tiger Trade) 完整合并分流规则 ===
 
-# MetaCubeX / v2fly 已覆盖
+# 1. 核心官网与应用基础域名 (Core Web & App)
 HOST-SUFFIX,itiger.com,PolicyTiger
 HOST-SUFFIX,itigerup.com,PolicyTiger
 HOST-SUFFIX,itigergrowth.com,PolicyTiger
 HOST-SUFFIX,itigergrowtha.com,PolicyTiger
+HOST-SUFFIX,tiger.com,PolicyTiger
+HOST-SUFFIX,tigertrade.app,PolicyTiger
 
-# LM-Firefly / blackmatrix7 覆盖
-HOST-SUFFIX,laohu8.com,PolicyTiger
-HOST-SUFFIX,tigerbbs.cn,PolicyTiger
-HOST-SUFFIX,tigerbbs.com,PolicyTiger
-HOST-SUFFIX,tigerfintech.com,PolicyTiger
-HOST-SUFFIX,xiaohu8.com,PolicyTiger
-HOST-SUFFIX,zhijianfengyi.cn,PolicyTiger
-HOST-SUFFIX,zhijianfengyi.com,PolicyTiger
-
-
-# 官方站点 / 区域站
+# 2. 国际化与各地区分支机构主域名 (Regional Branches)
 HOST-SUFFIX,tigerbrokers.com,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.sg,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.hk,PolicyTiger
+HOST-SUFFIX,tigerbrokers.hk,PolicyTiger
 HOST-SUFFIX,tigerbrokers.com.au,PolicyTiger
-HOST-SUFFIX,tigertrade.app,PolicyTiger
-HOST-SUFFIX,skytigris.cn,PolicyTiger
+HOST-SUFFIX,tigerbrokers.nz,PolicyTiger
 
-# 行情 / 新闻 / Web API，网页源码里能看到
-# HOST-SUFFIX,skytigris.cn,PolicyTiger
-# HOST-SUFFIX,ttm.financial,PolicyTiger
+# 3. 资讯社区与早期主域名 (Community & Legacy)
+HOST-SUFFIX,laohu8.com,PolicyTiger
+HOST-SUFFIX,xiaohu8.com,PolicyTiger
+HOST-SUFFIX,tigerbbs.com,PolicyTiger
+HOST-SUFFIX,tigerbbs.cn,PolicyTiger
+
+# 4. 上市主体与金融科技平台 (Corporate & Fintech)
+HOST-SUFFIX,upfintech.com,PolicyTiger
+HOST-SUFFIX,tigerfintech.com,PolicyTiger
+
+# 5. 行情数据、Web API与境内底层实体 (API, Data & VIEs)
+HOST-SUFFIX,skytigris.com,PolicyTiger
+HOST-SUFFIX,skytigris.cn,PolicyTiger
+HOST-SUFFIX,zhijianfengyi.com,PolicyTiger
+HOST-SUFFIX,zhijianfengyi.cn,PolicyTiger
+HOST-SUFFIX,ttm.financial,PolicyTiger
