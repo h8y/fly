@@ -1,27 +1,27 @@
 # Tiger Brokers / Tiger Trade / 老虎证券
 
 # MetaCubeX / v2fly 已覆盖
-DOMAIN-SUFFIX,itiger.com
-DOMAIN-SUFFIX,itigerup.com
-DOMAIN-SUFFIX,itigergrowth.com
-DOMAIN-SUFFIX,itigergrowtha.com
+HOST-SUFFIX,itiger.com,PolicyTiger
+HOST-SUFFIX,itigerup.com,PolicyTiger
+HOST-SUFFIX,itigergrowth.com,PolicyTiger
+HOST-SUFFIX,itigergrowtha.com,PolicyTiger
 
 # LM-Firefly / blackmatrix7 覆盖
-DOMAIN-SUFFIX,laohu8.com
-DOMAIN-SUFFIX,tigerbbs.cn
-DOMAIN-SUFFIX,tigerbbs.com
-DOMAIN-SUFFIX,tigerfintech.com
-DOMAIN-SUFFIX,xiaohu8.com
-DOMAIN-SUFFIX,zhijianfengyi.cn
-DOMAIN-SUFFIX,zhijianfengyi.com
+HOST-SUFFIX,laohu8.com,PolicyTiger
+HOST-SUFFIX,tigerbbs.cn,PolicyTiger
+HOST-SUFFIX,tigerbbs.com,PolicyTiger
+HOST-SUFFIX,tigerfintech.com,PolicyTiger
+HOST-SUFFIX,xiaohu8.com,PolicyTiger
+HOST-SUFFIX,zhijianfengyi.cn,PolicyTiger
+HOST-SUFFIX,zhijianfengyi.com,PolicyTiger
 
 # 官方站点 / 区域站
-DOMAIN-SUFFIX,tigerbrokers.com
-DOMAIN-SUFFIX,tigerbrokers.com.sg
-DOMAIN-SUFFIX,tigerbrokers.com.hk
-DOMAIN-SUFFIX,tigerbrokers.com.au
-DOMAIN-SUFFIX,tigertrade.app
+HOST-SUFFIX,tigerbrokers.com,PolicyTiger
+HOST-SUFFIX,tigerbrokers.com.sg,PolicyTiger
+HOST-SUFFIX,tigerbrokers.com.hk,PolicyTiger
+HOST-SUFFIX,tigerbrokers.com.au,PolicyTiger
+HOST-SUFFIX,tigertrade.app,PolicyTiger
 
 # 行情 / 新闻 / Web API，网页源码里能看到
-# DOMAIN-SUFFIX,skytigris.cn
-# DOMAIN-SUFFIX,ttm.financial
+# HOST-SUFFIX,skytigris.cn,PolicyTiger
+# HOST-SUFFIX,ttm.financial,PolicyTiger
