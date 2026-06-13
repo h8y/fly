@@ -1,98 +1,101 @@
 # NAME: Futu_Moomoo_QX
-# DESC: Futu / Futubull / Moomoo consolidated QX rules
-# FORMAT: Quantumult X filter_local rules
-# UPDATED: 2026-06-13
+# DESC: Futu / Futubull / Moomoo consolidated rules
+# FORMAT: Quantumult X rules
 # POLICY: PolicyFutu
+# UPDATED: 2026-06-13
+# SOURCES: MetaCubeX meta-rules-dat, h8y/fly, blackmatrix7/ios_rule_script issue #1687, koo17173/rule-set where applicable
+# NOTE: Domain rules are enabled. IP-CIDR rules are intentionally commented for later testing.
+# NOTE: Covered child domains/subdomains and overlapping CIDR entries have been removed.
 
 # Domain rules
-host-suffix, futu.link                        , PolicyFutu
-host-suffix, futu.com                         , PolicyFutu
-host-suffix, futu.cn                          , PolicyFutu
-host-suffix, futunn.com                       , PolicyFutu
-host-suffix, futu0.com                        , PolicyFutu
-host-suffix, futu1.com                        , PolicyFutu
-host-suffix, futu2.com                        , PolicyFutu
-host-suffix, futu3.com                        , PolicyFutu
-host-suffix, futu4.com                        , PolicyFutu
-host-suffix, futu5.com                        , PolicyFutu
-host-suffix, futu6.com                        , PolicyFutu
-host-suffix, futu7.com                        , PolicyFutu
-host-suffix, futu8.com                        , PolicyFutu
-host-suffix, futu9.com                        , PolicyFutu
-host-suffix, futuau.com                       , PolicyFutu
-host-suffix, futuesop.com                     , PolicyFutu
-host-suffix, futufin.com                      , PolicyFutu
-host-suffix, futuhk.com                       , PolicyFutu
-host-suffix, futuhk2.com                      , PolicyFutu
-host-suffix, futuhkapp.com                    , PolicyFutu
-host-suffix, futuhn.com                       , PolicyFutu
-host-suffix, futuholdings.com                 , PolicyFutu
-host-suffix, futuinc.com                      , PolicyFutu
-host-suffix, futuniuniu.com                   , PolicyFutu
-host-suffix, futubull.cn                      , PolicyFutu
-host-suffix, futuchain.com                    , PolicyFutu
-host-suffix, futustatic.com                   , PolicyFutu
-host-suffix, fututrade.com                    , PolicyFutu
-host-suffix, fututrustee.com                  , PolicyFutu
-host-suffix, moomoo.com                       , PolicyFutu
-host-suffix, api.moomoobull.com               , PolicyFutu
-host-suffix, moomooequity.com                 , PolicyFutu
-host-suffix, moomootrustee.com                , PolicyFutu
-host-suffix, 9oju31.launches.appsflyersdk.com , PolicyFutu
-host-suffix, sgqt0j.launches.appsflyersdk.com , PolicyFutu
-host-suffix, shortconn.im.qcloud.com          , PolicyFutu
+host-suffix, futu.cn                     , PolicyFutu
+host-suffix, futu.com                    , PolicyFutu
+host-suffix, futu.link                   , PolicyFutu
+host-suffix, futu0.com                   , PolicyFutu
+host-suffix, futu1.com                   , PolicyFutu
+host-suffix, futu2.com                   , PolicyFutu
+host-suffix, futu3.com                   , PolicyFutu
+host-suffix, futu4.com                   , PolicyFutu
+host-suffix, futu5.com                   , PolicyFutu
+host-suffix, futu6.com                   , PolicyFutu
+host-suffix, futu7.com                   , PolicyFutu
+host-suffix, futu8.com                   , PolicyFutu
+host-suffix, futu9.com                   , PolicyFutu
+host-suffix, futuau.com                  , PolicyFutu
+host-suffix, futuhk.com                  , PolicyFutu
+host-suffix, futuhn.com                  , PolicyFutu
+host-suffix, futunn.com                  , PolicyFutu
+host-suffix, moomoo.com                  , PolicyFutu
+host-suffix, futubull.cn                 , PolicyFutu
+host-suffix, futufin.com                 , PolicyFutu
+host-suffix, futuhk2.com                 , PolicyFutu
+host-suffix, futuinc.com                 , PolicyFutu
+host-suffix, futuesop.com                , PolicyFutu
+host-suffix, futuchain.com               , PolicyFutu
+host-suffix, futuhkapp.com               , PolicyFutu
+host-suffix, fututrade.com               , PolicyFutu
+host-suffix, futuniuniu.com              , PolicyFutu
+host-suffix, futustatic.com              , PolicyFutu
+host-suffix, fututrustee.com             , PolicyFutu
+host-suffix, futuholdings.com            , PolicyFutu
+host-suffix, moomooequity.com            , PolicyFutu
+host-suffix, moomootrustee.com           , PolicyFutu
+host-suffix, api.moomoobull.com          , PolicyFutu
+host-suffix, shortconn.im.qcloud.com     , PolicyFutu
+host-suffix, 9oju31.launches.appsflyersdk.com, PolicyFutu
+host-suffix, sgqt0j.launches.appsflyersdk.com, PolicyFutu
 
 # IP-CIDR rules
-# 暂不建议默认启用：IP 段可能变动或误伤；需要测试时去掉行首 '# '。
-# ip-cidr, 1.14.242.0/23                    , PolicyFutu, no-resolve
-# ip-cidr, 14.152.91.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 38.65.217.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 42.193.128.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.130.30.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 43.130.170.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.132.107.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.135.64.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 43.135.82.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 43.142.232.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.145.30.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 43.153.191.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.153.233.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 43.160.156.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 49.51.78.0/24                    , PolicyFutu, no-resolve
-# ip-cidr, 49.234.241.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 101.32.198.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 106.55.66.0/23                   , PolicyFutu, no-resolve
-# ip-cidr, 111.230.119.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 111.230.214.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 119.28.37.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 119.28.141.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 119.28.183.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 119.29.48.0/23                   , PolicyFutu, no-resolve
-# ip-cidr, 119.91.245.0/23                  , PolicyFutu, no-resolve
-# ip-cidr, 119.147.110.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 121.5.97.0/24                    , PolicyFutu, no-resolve
-# ip-cidr, 124.156.124.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 124.156.233.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 124.156.234.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 129.226.79.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 129.226.111.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 162.14.10.0/24                   , PolicyFutu, no-resolve
-# ip-cidr, 170.106.48.0/23                  , PolicyFutu, no-resolve
-# ip-cidr, 170.106.62.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 183.60.225.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 193.112.84.0/24                  , PolicyFutu, no-resolve
-# ip-cidr, 193.112.234.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 43.134.158.106/32                , PolicyFutu, no-resolve
-# ip-cidr, 43.132.138.6/32                  , PolicyFutu, no-resolve
-# ip-cidr, 119.28.201.30/32                 , PolicyFutu, no-resolve
-# ip-cidr, 49.51.77.113/32                  , PolicyFutu, no-resolve
-# ip-cidr, 43.153.234.107/32                , PolicyFutu, no-resolve
-# ip-cidr, 43.153.249.33/32                 , PolicyFutu, no-resolve
-# ip-cidr, 43.163.17.229/32                 , PolicyFutu, no-resolve
-# ip-cidr, 170.106.201.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 175.178.207.0/24                 , PolicyFutu, no-resolve
-# ip-cidr, 42.194.152.250/32                , PolicyFutu, no-resolve
-# ip-cidr, 43.132.106.6/32                  , PolicyFutu, no-resolve
-# ip-cidr, 43.132.106.8/32                  , PolicyFutu, no-resolve
-# ip-cidr, 43.132.138.67/32                 , PolicyFutu, no-resolve
-# ip-cidr, 1.15.158.235/32                  , PolicyFutu, no-resolve
+# 富途 IP-CIDR 暂不建议默认启用；已去掉被更大网段覆盖的重复测试项。需要测试时去掉行首 "# "。
+# ip-cidr, 1.14.242.0/23                 , PolicyFutu, no-resolve
+# ip-cidr, 1.15.158.235/32               , PolicyFutu, no-resolve
+# ip-cidr, 14.152.91.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 38.65.217.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 42.193.128.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 42.194.152.250/32             , PolicyFutu, no-resolve
+# ip-cidr, 43.130.30.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 43.130.170.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.132.106.6/32               , PolicyFutu, no-resolve
+# ip-cidr, 43.132.106.8/32               , PolicyFutu, no-resolve
+# ip-cidr, 43.132.107.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.132.138.6/32               , PolicyFutu, no-resolve
+# ip-cidr, 43.132.138.67/32              , PolicyFutu, no-resolve
+# ip-cidr, 43.134.158.106/32             , PolicyFutu, no-resolve
+# ip-cidr, 43.135.64.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 43.135.82.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 43.142.232.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.145.30.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 43.153.191.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.153.233.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.153.234.107/32             , PolicyFutu, no-resolve
+# ip-cidr, 43.153.249.33/32              , PolicyFutu, no-resolve
+# ip-cidr, 43.160.156.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 43.163.17.229/32              , PolicyFutu, no-resolve
+# ip-cidr, 49.51.77.113/32               , PolicyFutu, no-resolve
+# ip-cidr, 49.51.78.0/24                 , PolicyFutu, no-resolve
+# ip-cidr, 49.234.241.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 101.32.198.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 106.55.66.0/23                , PolicyFutu, no-resolve
+# ip-cidr, 111.230.119.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 111.230.214.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 119.28.37.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 119.28.141.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 119.28.183.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 119.28.201.30/32              , PolicyFutu, no-resolve
+# ip-cidr, 119.29.48.0/23                , PolicyFutu, no-resolve
+# ip-cidr, 119.91.244.0/23               , PolicyFutu, no-resolve
+# ip-cidr, 119.147.110.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 121.5.97.0/24                 , PolicyFutu, no-resolve
+# ip-cidr, 124.156.124.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 124.156.233.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 124.156.234.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 129.226.79.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 129.226.111.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 162.14.10.0/24                , PolicyFutu, no-resolve
+# ip-cidr, 170.106.48.0/23               , PolicyFutu, no-resolve
+# ip-cidr, 170.106.62.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 170.106.201.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 175.178.207.0/24              , PolicyFutu, no-resolve
+# ip-cidr, 183.60.225.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 193.112.84.0/24               , PolicyFutu, no-resolve
+# ip-cidr, 193.112.234.0/24              , PolicyFutu, no-resolve
