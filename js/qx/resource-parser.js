@@ -814,6 +814,7 @@ var flag = 1
 // retry with new UA, default use shadowrocket
 var PLockRequest = PLockServer == 1 || PRelayLock == 1
 var PAsyncLock = PLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
+var ResolveCache = {} // 必须在 Parser() 执行前初始化；relay-lock 会在函数定义区前进入 ResolveIPv4()
 
 if (UARetry && !inRetry && version>920) {
   $notify("⚠️ 将尝试使用其他 UA, 重新获取订阅内容","⚠️ 如仍旧无有效内容，请自行与节点提供商联系","⚠️ 本次尝试使用 User-Agent 为 ⬇️\n\n"+UA_Retry)
@@ -824,8 +825,8 @@ if (UARetry && !inRetry && version>920) {
       if(Perror == 0) {
         $notify("❌ 节点域名锁定不可用", "⚠️ 当前环境不支持 $task.fetch，已中止输出，避免三级代理回环", "", bug_link);
       }
-      total = errornode
-      $done({ content: errornode })
+      total = LockFailContent()
+      $done({ content: total })
     } else {
       Parser()
       if (!PAsyncLock) { $done({ content: total, info: Finfo }) }
@@ -861,6 +862,7 @@ function Parser() {
       if(Perror == 0) {
       $notify("❌ 解析出现错误", "⚠️ 请点击通知，发送订阅链接进行反馈", err, bug_link);
     }
+      if (PLockRequest) { total = LockFailContent() }
     }
   } else if (type0 == "wrong-field"){
     if (version >= 670 && typec!="") { //尝试跳转到正确类型
@@ -1034,9 +1036,15 @@ function ResourceParse() {
       if (PUOT==1) { total = total.split("\n").map(UOT).join("\n")}
       if (PAsyncLock) {
         return ServerLock(total.split("\n")).then(function(locked) {
+          if (locked.length == 0) {
+            total = LockFailContent()
+            $done({ content: total, info: Finfo })
+            return total
+          }
           var lockedTotal = locked.join("\n")
           if (Pcnt == 1 && lockedTotal!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +locked.length, lockedTotal)}
           total = PRelay==""? Base64.encode(lockedTotal) : ServerRelay(locked,PRelay,PRelayVia) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
+          if (PRelay != "" && total == "") { total = LockFailContent() }
           if (PNS !=0) {
             if (version >913) {
               $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
@@ -1052,13 +1060,14 @@ function ResourceParse() {
           if(Perror == 0) {
             $notify("❌ 节点域名锁定失败", "⚠️ 已中止输出，避免三级代理回环", String(err), bug_link);
           }
-          total = errornode
-          $done({ content: errornode })
+          total = LockFailContent()
+          $done({ content: total })
           return total
         })
       }
       if (Pcnt == 1 && total!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +total.split("\n").length, total)}
       total = PRelay==""? Base64.encode(total) : ServerRelay(total.split("\n"),PRelay,PRelayVia) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
+      if (PRelay != "" && total == "") { total = LockFailContent() }
       if (PNS !=0) {
         if (version >913) {
           $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
@@ -1499,6 +1508,11 @@ function URI_TAG(cnt0,tag0) {
   return cnt0
 }
 
+// 锁定失败时返回有效占位内容，避免 $done 缺少 content 导致 result missing
+function LockFailContent() {
+  return PRelay != ""? "host,resource-parser-lock-failed.invalid,reject" : "socks5=127.0.0.1:1, username=lock, password=failed, tag=RESOURCE-PARSER-LOCK-FAILED"
+}
+
 // 方便代理链的实现
 function ServerRelay(src,dst,relayVia) {
   var rsts=[]
@@ -1576,7 +1590,7 @@ function AddServerParam(cnt,param) {
   return cnt + ", " + param
 }
 
-var ResolveCache = {}
+ResolveCache = ResolveCache || {}
 function ResolveKey(host) {
   return "resource_parser_lock_ip_" + host.replace(/[^a-zA-Z0-9_\-\.]/g,"_")
 }
