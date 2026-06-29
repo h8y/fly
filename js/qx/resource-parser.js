@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-28 08:09⟧ ⟦2026-06-28 08:09⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-29 08:09⟧ ⟦2026-06-28 08:19⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -813,7 +813,8 @@ var flag = 1
 
 // retry with new UA, default use shadowrocket
 var PLockRequest = PLockServer == 1 || PRelayLock == 1
-var PAsyncLock = PLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
+var PTaskLockRequest = PLockServer == 1 || (PRelayLock == 1 && PLockRefresh == 1)
+var PAsyncLock = PTaskLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
 var ResolveCache = {} // 必须在 Parser() 执行前初始化；relay-lock 会在函数定义区前进入 ResolveIPv4()
 
 if (UARetry && !inRetry && version>920) {
@@ -821,7 +822,7 @@ if (UARetry && !inRetry && version>920) {
   $done({retry: {user_agent: "Shadowrocket/3218 CFNetwork/3860.600.12 Darwin/25.5.0 iPhone18,1"}})
 } else {
   if (typeof($resource)!=="undefined" && PProfile == 0) {
-    if (PLockRequest && !PAsyncLock) {
+    if (PTaskLockRequest && !PAsyncLock) {
       if(Perror == 0) {
         $notify("❌ 节点域名锁定不可用", "⚠️ 当前环境不支持 $task.fetch，已中止输出，避免三级代理回环", "", bug_link);
       }
@@ -1510,7 +1511,7 @@ function URI_TAG(cnt0,tag0) {
 
 // 锁定失败时返回有效占位内容，避免 $done 缺少 content 导致 result missing
 function LockFailContent() {
-  return PRelay != ""? "host,resource-parser-lock-failed.invalid,reject" : "socks5=127.0.0.1:1, username=lock, password=failed, tag=RESOURCE-PARSER-LOCK-FAILED"
+  return PRelay != ""? "host-suffix,resource-parser-lock-failed.invalid,reject" : "socks5=127.0.0.1:1, username=lock, password=failed, tag=RESOURCE-PARSER-LOCK-FAILED"
 }
 
 // 方便代理链的实现
@@ -1519,6 +1520,11 @@ function ServerRelay(src,dst,relayVia) {
   for (var i=0; i<src.length; i++) {
     serverA = PRelayLock == 1? ServerEndpointHost(src[i]) : ServerHost(src[i])
     if (!serverA) { continue }
+    if (PRelayLock == 1 && IsDomain(serverA)) {
+      var lockedIP = ReadLockIP(serverA)
+      if (!lockedIP) { continue }
+      serverA = lockedIP
+    }
     type = IsDomain(serverA)? "host":"ip"
     rst = type == "ip"? "ip-cidr,"+serverA+"/32,"+dst : "host-suffix,"+serverA+","+dst
     if (relayVia !== "" && relayVia != undefined) {
