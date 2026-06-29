@@ -5,7 +5,7 @@
 QuantumultX:
 
 [rewrite_local]
-^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://github.com/h8y/fly/raw/main/js/qx/Wechat.js
+^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad url script-response-body https://github.com/h8y/fly/raw/main/js/qx/WeChatOfficialAccount.js
 
 [mitm]
 hostname = mp.weixin.qq.com
@@ -14,7 +14,7 @@ hostname = mp.weixin.qq.com
 Surge4 or Loon:
 
 [Script]
-http-response ^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad requires-body=1,max-size=0,script-path=https://github.com/h8y/fly/raw/main/js/qx/Wechat.js
+http-response ^https?:\/\/mp\.weixin\.qq\.com\/mp\/getappmsgad requires-body=1,max-size=0,script-path=https://github.com/h8y/fly/raw/main/js/qx/WeChatOfficialAccount.js
 
 [MITM]
 hostname = mp.weixin.qq.com
