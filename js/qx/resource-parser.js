@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-29 08:09⟧ ⟦2026-06-28 08:19⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-05-29 08:09⟧ ⟦2026-06-28 08:29⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -87,10 +87,6 @@
 ⦿ fcr=1/2/3, 为分流规则添加 force-cellular/multi-interface/multi-interface-balance 参数，强制移动数据/混合数据/负载均衡
 ⦿ via=接口, 为分流规则添加 via-interface 参数, 0 表示 via-interface=%TUN%
 ⦿ relay=目标策略名, 批量将节点订阅转换为ip/host规则，用于实现代理链
-⦿ relay-via=接口, 仅为 relay 生成的规则添加 via-interface 参数, 0 表示 via-interface=%TUN%
-⦿ relay-lock=1, relay 前将域名节点解析并锁定为 IPv4, 只生成 ip-cidr 规则，避免域名漂移导致回环
-⦿ lock-server=1, 将节点订阅中的域名 server 改写为解析到的 IPv4, 并保留原域名到 tls-host/obfs-host
-⦿ lock-refresh=1, 强制刷新已保存的域名锁定 IP，默认不刷新以避免 server/filter 时间差导致回环
 
 3⃣️ 其他参数
 ⦿ 通知参数 ntf=0/1, 用于 关闭/打开 资源解析器的提示通知
@@ -294,30 +290,6 @@ $parser.hashSchema = function () {
           { type: "text",   key: "relay", label: "代理链 Relay「节点订阅」",
             description: "将（落地）节点的订阅转换为 ip/host 规则，指向 中转策略组/节点。\n ⚠️ 设置 代理链条Relay 时，请确保关闭改订阅首页的「策略偏好」设置 \n\n ⚠️ 以上两项不应该在同一条引用中同时设置 ⚠️" ,
             placeholder: "⚠️ 此处请填写你的 中转策略组/节点名" },
-          { type: "text", key: "relay-via", label: "Relay 专用 via-interface",
-            description: "仅给 relay 生成的规则添加 via-interface, 0 表示 via-interface=%TUN%",
-            placeholder: "填写 0 即可" },
-          { type: "select", key: "relay-lock", label: "Relay 锁定域名为 IPv4",
-            description: "将域名节点先解析并锁定为 IPv4, relay 只生成 ip-cidr 规则，避免运行时域名漂移导致回环",
-            items: [
-              { key: "关闭",   value: "0" },
-              { key: "开启",   value: "1" }
-            ]
-          },
-          { type: "select", key: "lock-server", label: "节点 server 锁定为 IPv4",
-            description: "将节点中的域名 server 改写为解析到的 IPv4, 并保留原域名到 tls-host/obfs-host",
-            items: [
-              { key: "关闭",   value: "0" },
-              { key: "开启",   value: "1" }
-            ]
-          },
-          { type: "select", key: "lock-refresh", label: "强制刷新锁定 IP",
-            description: "默认复用已保存的锁定 IP，避免 server/filter 非原子刷新导致回环；确认规则已同步时再开启刷新",
-            items: [
-              { key: "关闭",   value: "0" },
-              { key: "开启",   value: "1" }
-            ]
-          },
            
         ]
       },
@@ -616,6 +588,15 @@ SubFlow() //流量通知
 
 
 // 参数获取
+// 参数读取：精确匹配参数名，避免 relay-via 误命中 relay/via；同时截断 QX 资源行后续 ", tag=" 参数
+function ReadHashParam(name) {
+  if (!mark0) { return "" }
+  var key = name.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")
+  var reg = new RegExp("(^|\\&)"+key+"=([^&,]*)")
+  var m = para1.match(reg)
+  return m ? decodeURIComponent(m[2]).trim() : ""
+}
+
 var Pin0 = mark0 && para1.indexOf("in=") != -1 ? (para1.split("in=")[1].split("&")[0].split("+")).map(decodeURIComponent) : null;
 var Pout0 = mark0 && (para.indexOf("#out=") != -1 || para.indexOf("&out=") != -1)? ((para.indexOf("#out=")!=-1? para.split("#out="): para.split("&out="))[1].split("&")[0].split("+")).map(decodeURIComponent) : null;
 var Psfilter = mark0 && para1.indexOf("sfilter=") != -1 ? Base64.decode(para1.split("sfilter=")[1].split("&")[0]) : null; // script filter
@@ -657,20 +638,24 @@ let [flow, exptime, errornode, total] = "";
 var Pdel = mark0 && para1.indexOf("del=") != -1 ? para1.split("del=")[1].split("&")[0] : 0; //删除重复节点
 var typeU = mark0 && para1.indexOf("type=") != -1 ? para1.split("type=")[1].split("&")[0] : "";
 var Pfcr = mark0 && para1.indexOf("fcr=") != -1 ? para1.split("fcr=")[1].split("&")[0] : ""; // force-cellular 等参数
-var Pvia = mark0 && para1.indexOf("via=") != -1 ? para1.split("via=")[1].split("&")[0] : ""; // via-interface 参数
+var Pvia = ReadHashParam("via"); // via-interface 参数
 var Paead = mark0 && para1.indexOf("aead=") != -1 ? para1.split("aead=")[1].split("&")[0] : ""; // vmess aead 参数
 var Phost = mark0 && ( para.indexOf("#host=") != -1 || para.indexOf("&host=") != -1) ? (para.indexOf("#host=")!=-1? para.split("#host="): para.split("&host="))[1].split("&")[0] : ""; // host 混淆参数
 var Pcsha256 = mark0 && para1.indexOf("csha=") != -1 && version >= 646? para1.split("csha=")[1].split("&")[0] : ""; // cert-sha256 混淆参数
 var Ppsha256 = mark0 && para1.indexOf("psha=") != -1 && version >= 646? para1.split("psha=")[1].split("&")[0] : ""; // pubkey-sha256 混淆参数
 var typeQ = $resource.type? $resource.type:"unsupported"   //返回 field 类型参数
-var PRelay =mark0 && para1.indexOf("relay=") != -1 ? decodeURIComponent(para1.split("relay=")[1].split("&")[0]) : ""; // 节点 relay 参数, 用于实现代理链功能
-var PRelayVia = mark0 && para1.indexOf("relay-via=") != -1 ? decodeURIComponent(para1.split("relay-via=")[1].split("&")[0]) : ""; // relay 专用 via-interface 参数
-var PRelayLock = mark0 && para1.indexOf("relay-lock=") != -1 ? para1.split("relay-lock=")[1].split("&")[0] : 0; // relay 前将域名节点解析并锁定为 IPv4
-var PLockServer = mark0 && para1.indexOf("lock-server=") != -1 ? para1.split("lock-server=")[1].split("&")[0] : 0; // 将节点 server 域名改写为解析到的 IPv4
-var PLockHost = mark0 && para1.indexOf("lock-host=") != -1 ? para1.split("lock-host=")[1].split("&")[0] : 1; // lock-server 时自动保留原域名到 tls-host/obfs-host
-var PLockStrict = mark0 && para1.indexOf("lock-strict=") != -1 ? para1.split("lock-strict=")[1].split("&")[0] : 1; // 锁定失败时默认丢弃相关节点，避免回环
-var PLockRefresh = mark0 && para1.indexOf("lock-refresh=") != -1 ? para1.split("lock-refresh=")[1].split("&")[0] : 0; // 强制刷新已保存的锁定 IP
-var PLockDoh = mark0 && para1.indexOf("lock-doh=") != -1 ? decodeURIComponent(para1.split("lock-doh=")[1].split("&")[0]) : "https://dns.alidns.com/resolve?name={host}&type=A"; // lock-server/relay-lock 使用的 DoH
+var PRelay = ReadHashParam("relay"); // 节点 relay 参数, 用于实现代理链功能
+var PRelayVia = ReadHashParam("relay-via"); // relay 专用 via-interface 参数
+var PRelayLock = ReadHashParam("relay-lock") || 0; // relay 前将域名节点解析并锁定为 IPv4
+var PLockServer = ReadHashParam("lock-server") || 0; // 将节点 server 域名改写为解析到的 IPv4
+var PLockHost = ReadHashParam("lock-host") || 1; // lock-server 时自动保留原域名到 tls-host/obfs-host
+var PLockStrict = ReadHashParam("lock-strict") || 1; // 锁定失败时默认丢弃相关节点，避免回环
+var PLockRefresh = ReadHashParam("lock-refresh") || 0; // 强制刷新已保存的锁定 IP
+var PLockDoh = ReadHashParam("lock-doh") || "https://dns.alidns.com/resolve?name={host}&type=A"; // lock-server/relay-lock 使用的 DoH
+var PLockRequest = PLockServer == 1 || PRelayLock == 1
+var PTaskLockRequest = PLockServer == 1 || (PRelayLock == 1 && PLockRefresh == 1)
+var PAsyncLock = PTaskLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
+var ResolveCache = {}
 var PUOT = mark0 && para1.indexOf("uot=") != -1 && version >= 665? para1.split("uot=")[1].split("&")[0] : ""; // 节点 udp-over-tcp 开启
 var PcheckU = mark0 && para1.indexOf("checkurl=") != -1 ? decodeURIComponent(para1.split("checkurl=")[1].split("&")[0]) : ""; // 节点 server_check_url 参数
 typeQ = PRelay!=""? "server":typeQ
@@ -812,26 +797,21 @@ var type0=""
 var flag = 1
 
 // retry with new UA, default use shadowrocket
-var PLockRequest = PLockServer == 1 || PRelayLock == 1
-var PTaskLockRequest = PLockServer == 1 || (PRelayLock == 1 && PLockRefresh == 1)
-var PAsyncLock = PTaskLockRequest && typeof($task) != "undefined" && typeof($task.fetch) == "function"
-var ResolveCache = {} // 必须在 Parser() 执行前初始化；relay-lock 会在函数定义区前进入 ResolveIPv4()
-
 if (UARetry && !inRetry && version>920) {
   $notify("⚠️ 将尝试使用其他 UA, 重新获取订阅内容","⚠️ 如仍旧无有效内容，请自行与节点提供商联系","⚠️ 本次尝试使用 User-Agent 为 ⬇️\n\n"+UA_Retry)
   $done({retry: {user_agent: "Shadowrocket/3218 CFNetwork/3860.600.12 Darwin/25.5.0 iPhone18,1"}})
 } else {
   if (typeof($resource)!=="undefined" && PProfile == 0) {
-    if (PTaskLockRequest && !PAsyncLock) {
-      if(Perror == 0) {
-        $notify("❌ 节点域名锁定不可用", "⚠️ 当前环境不支持 $task.fetch，已中止输出，避免三级代理回环", "", bug_link);
-      }
-      total = LockFailContent()
-      $done({ content: total })
-    } else {
-      Parser()
-      if (!PAsyncLock) { $done({ content: total, info: Finfo }) }
+  if (PTaskLockRequest && !PAsyncLock) {
+    if(Perror == 0) {
+      $notify("❌ 节点域名锁定不可用", "⚠️ 当前环境不支持 $task.fetch，已中止输出，避免三级代理回环", "", bug_link);
     }
+    total = LockFailContent()
+    $done({ content: total, info: Finfo })
+  } else {
+    Parser()
+    if (!PAsyncLock) { $done({ content: total, info: Finfo }) }
+  }
 } else if (PProfile != 0) {
   try {
     Profile_Handle()
@@ -860,10 +840,10 @@ function Parser() {
       if (PAsyncLock && total && typeof(total.then) == "function") { return total }
       
     } catch (err) {
+      if (PLockRequest) { total = LockFailContent() }
       if(Perror == 0) {
       $notify("❌ 解析出现错误", "⚠️ 请点击通知，发送订阅链接进行反馈", err, bug_link);
     }
-      if (PLockRequest) { total = LockFailContent() }
     }
   } else if (type0 == "wrong-field"){
     if (version >= 670 && typec!="") { //尝试跳转到正确类型
@@ -1035,24 +1015,18 @@ function ResourceParse() {
       //$notify("before","haha",total)
       total = TagCheck_QX(total).join("\n") //节点名检查
       if (PUOT==1) { total = total.split("\n").map(UOT).join("\n")}
+      if (Pcnt == 1 && total!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +total.split("\n").length, total)}
       if (PAsyncLock) {
         return ServerLock(total.split("\n")).then(function(locked) {
-          if (locked.length == 0) {
+          if (!locked || locked.length == 0) {
             total = LockFailContent()
             $done({ content: total, info: Finfo })
             return total
           }
           var lockedTotal = locked.join("\n")
           if (Pcnt == 1 && lockedTotal!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +locked.length, lockedTotal)}
-          total = PRelay==""? Base64.encode(lockedTotal) : ServerRelay(locked,PRelay,PRelayVia) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
-          if (PRelay != "" && total == "") { total = LockFailContent() }
-          if (PNS !=0) {
-            if (version >913) {
-              $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
-            } else {
-              $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic/Anytls 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
-            }
-          }
+          total = PRelay==""? Base64.encode(lockedTotal) : ServerRelay(locked,PRelay,PRelayVia)
+          if (PRelay!="" && PRelayLock == 1 && (!total || total.trim() == "")) { total = LockFailContent() }
           if(Pflow==1) {
             $done({ content: total, info: {bytes_used: 3073741824, bytes_remaining: 2147483648, expire_date: 1854193966}});
           } else { $done({ content: total, info: Finfo });}
@@ -1062,13 +1036,12 @@ function ResourceParse() {
             $notify("❌ 节点域名锁定失败", "⚠️ 已中止输出，避免三级代理回环", String(err), bug_link);
           }
           total = LockFailContent()
-          $done({ content: total })
+          $done({ content: total, info: Finfo })
           return total
         })
       }
-      if (Pcnt == 1 && total!=undefined) {$notify("⟦" + subtag + "⟧"+"解析后最终返回内容" , "节点数量: " +total.split("\n").length, total)}
       total = PRelay==""? Base64.encode(total) : ServerRelay(total.split("\n"),PRelay,PRelayVia) //强制节点类型 base64 加密后再导入 Quantumult X, 如果是relay，则转换成分流类型
-      if (PRelay != "" && total == "") { total = LockFailContent() }
+      if (PRelay!="" && PRelayLock == 1 && (!total || total.trim() == "")) { total = LockFailContent() }
       if (PNS !=0) {
         if (version >913) {
           $notify("⚠️ 存在 QuantumultX 不支持类型 ➟ ⟦"+subtag+"⟧", "⚠️ 已忽略相关节点，共计 ➟ "+PNS+" 条", "⚠️ 此版本暂不支持 Hysteria2/Tuic 等类型, 以及 http-upgrade/xhttp/grpc/mkcp/h2” 等类型 vless\n\n"+NSList.join("\n"))
@@ -1509,11 +1482,6 @@ function URI_TAG(cnt0,tag0) {
   return cnt0
 }
 
-// 锁定失败时返回有效占位内容，避免 $done 缺少 content 导致 result missing
-function LockFailContent() {
-  return PRelay != ""? "host-suffix,resource-parser-lock-failed.invalid,reject" : "socks5=127.0.0.1:1, username=lock, password=failed, tag=RESOURCE-PARSER-LOCK-FAILED"
-}
-
 // 方便代理链的实现
 function ServerRelay(src,dst,relayVia) {
   var rsts=[]
@@ -1522,11 +1490,12 @@ function ServerRelay(src,dst,relayVia) {
     if (!serverA) { continue }
     if (PRelayLock == 1 && IsDomain(serverA)) {
       var lockedIP = ReadLockIP(serverA)
+      if (!lockedIP && PLockRefresh == 1 && ResolveCache[serverA]) { lockedIP = ResolveCache[serverA] }
       if (!lockedIP) { continue }
       serverA = lockedIP
     }
     type = IsDomain(serverA)? "host":"ip"
-    rst = type == "ip"? "ip-cidr,"+serverA+"/32,"+dst : "host-suffix,"+serverA+","+dst
+    rst = type == "ip"? "ip-cidr,"+serverA+"/32,"+dst : "host-suffix,"+serverA+","+dst 
     if (relayVia !== "" && relayVia != undefined) {
       rst += relayVia == 0? ", via-interface=%TUN%" : ", via-interface="+relayVia
     }
@@ -1561,6 +1530,10 @@ function IsDomain(cnt) {
   return cnt && !IsIPv4(cnt) && !IsIPv6(cnt) && /[a-zA-Z]/.test(cnt)
 }
 
+function LockFailContent() {
+  return PRelay != ""? "host-suffix,resource-parser-lock-failed.invalid,reject" : Base64.encode("socks5=127.0.0.1:1, username=lock, password=failed, tag=RESOURCE-PARSER-LOCK-FAILED")
+}
+
 function ServerLock(src) {
   if (PLockServer != 1 && PRelayLock != 1) { return Promise.resolve(src) }
   var jobs=[]
@@ -1592,11 +1565,10 @@ function ServerKeepHost(cnt,host) {
 }
 
 function AddServerParam(cnt,param) {
-  if (cnt.indexOf(", tag=") != -1) { return cnt.replace(/,\s*tag\s*=/,", "+param+", tag=") }
+  if (cnt.indexOf(", tag=") != -1) { return cnt.replace(/,\s*tag\s*\=/,", "+param+", tag=") }
   return cnt + ", " + param
 }
 
-ResolveCache = ResolveCache || {}
 function ResolveKey(host) {
   return "resource_parser_lock_ip_" + host.replace(/[^a-zA-Z0-9_\-\.]/g,"_")
 }
