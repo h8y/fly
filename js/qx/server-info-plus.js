@@ -76,7 +76,7 @@ function E2C(cnt){
     res = "高风险 ⚠️"
   } else if(cnt.indexOf("medium")!=-1) {
     res = "中风险 🟡"
-  } else if(nt.indexOf("low")!=-1) {
+  } else if(cnt.indexOf("low")!=-1) {
     res = "低风险 ✅"
   }
   return res
