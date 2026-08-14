@@ -1,0 +1,22 @@
+# Converted-By: QX -> common typed rule-set
+# Conversion-Version: 1.5.0
+# Reviewed-Date: 2026-08-14
+# Compatible-Targets: Loon, Shadowrocket, Mihomo/Clash.Meta (behavior=classical, format=text)
+# Common-format note: this file contains no target-divergent IPv6 rule types.
+# Source: https://raw.githubusercontent.com/h8y/fly/main/rule/qx/hsbc.txt
+# Policy column removed intentionally; bind policy at the parent rule-subscription reference.
+
+DOMAIN-SUFFIX,hsbcfts.com.cn
+DOMAIN-SUFFIX,hsbc.com.cn
+DOMAIN-SUFFIX,hsbc.com.hk
+DOMAIN-SUFFIX,hsbc.com.us
+DOMAIN-SUFFIX,hsbc.com.mx
+DOMAIN-SUFFIX,hsbc.com.sg
+DOMAIN-SUFFIX,hsbc.co.uk
+DOMAIN-SUFFIX,hsbc.com
+# DOMAIN-SUFFIX,eum-appdynamics.com
+DOMAIN-SUFFIX,hsbc.edge.sdk.awswaf.com
+DOMAIN-SUFFIX,hsbc.f2cbffe2.us-west-1.token.awswaf.com
+
+# zn1x4bay9t3d099pf-hsbcdigital.siteintercept.qualtrics.com
+# eapi.preferences.prod.ap-east-1.vam-hk.cloud1.vv1865.com

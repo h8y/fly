@@ -1,0 +1,9 @@
+# Converted-By: QX -> common typed rule-set
+# Conversion-Version: 1.5.0
+# Reviewed-Date: 2026-08-14
+# Compatible-Targets: Loon, Shadowrocket, Mihomo/Clash.Meta (behavior=classical, format=text)
+# Common-format note: this file contains no target-divergent IPv6 rule types.
+# Source: https://raw.githubusercontent.com/h8y/fly/main/rule/qx/fixdirect.list
+# Policy column removed intentionally; bind policy at the parent rule-subscription reference.
+
+DOMAIN,cdn.jsdelivr.net

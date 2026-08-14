@@ -1,0 +1,42 @@
+# Converted-By: QX -> common typed rule-set
+# Conversion-Version: 1.5.0
+# Reviewed-Date: 2026-08-14
+# Compatible-Targets: Loon, Shadowrocket, Mihomo/Clash.Meta (behavior=classical, format=text)
+# Common-format note: this file contains no target-divergent IPv6 rule types.
+# Source: https://raw.githubusercontent.com/h8y/fly/main/rule/qx/itiger.list
+# Policy column removed intentionally; bind policy at the parent rule-subscription reference.
+
+# === 老虎证券 (Tiger Brokers / Tiger Trade) 完整合并分流规则 ===
+
+# 1. 核心官网与应用基础域名 (Core Web & App)
+DOMAIN-SUFFIX,itiger.com
+DOMAIN-SUFFIX,itigerup.com
+DOMAIN-SUFFIX,itigergrowth.com
+DOMAIN-SUFFIX,itigergrowtha.com
+DOMAIN-SUFFIX,tiger.com
+DOMAIN-SUFFIX,tigertrade.app
+
+# 2. 国际化与各地区分支机构主域名 (Regional Branches)
+DOMAIN-SUFFIX,tigerbrokers.com
+DOMAIN-SUFFIX,tigerbrokers.com.sg
+DOMAIN-SUFFIX,tigerbrokers.com.hk
+DOMAIN-SUFFIX,tigerbrokers.hk
+DOMAIN-SUFFIX,tigerbrokers.com.au
+DOMAIN-SUFFIX,tigerbrokers.nz
+
+# 3. 资讯社区与早期主域名 (Community & Legacy)
+DOMAIN-SUFFIX,laohu8.com
+DOMAIN-SUFFIX,xiaohu8.com
+DOMAIN-SUFFIX,tigerbbs.com
+DOMAIN-SUFFIX,tigerbbs.cn
+
+# 4. 上市主体与金融科技平台 (Corporate & Fintech)
+DOMAIN-SUFFIX,upfintech.com
+DOMAIN-SUFFIX,tigerfintech.com
+
+# 5. 行情数据、Web API与境内底层实体 (API, Data & VIEs)
+DOMAIN-SUFFIX,skytigris.com
+DOMAIN-SUFFIX,skytigris.cn
+DOMAIN-SUFFIX,zhijianfengyi.com
+DOMAIN-SUFFIX,zhijianfengyi.cn
+DOMAIN-SUFFIX,ttm.financial
