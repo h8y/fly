@@ -1,34 +1,56 @@
-# NAME: Interactive Brokers (IBKR) - Practical Core
-# UPDATED: 2026-01-21
+# NAME: Interactive Brokers (IBKR) - Complete
+# UPDATED: 2026-08-14
 # FORMAT: TEXT
+# COMPATIBILITY: Loon, Shadowrocket, Mihomo/Clash.Meta (behavior=classical, format=text)
 
-########## TWS / Gateway Infrastructure (核心基建) ##########
-# TWS 软件、网关、行情数据的主通道 (*.ibllc.com)
+########## TWS / Gateway Infrastructure ##########
 DOMAIN-SUFFIX,ibllc.com
-
-# 中国大陆专用接入网关 (如 mcgw1.ibllc.com.cn)
-# ⚠️ 关键：漏了这条，国内 TWS 连接可能会不稳定
 DOMAIN-SUFFIX,ibllc.com.cn
 
 ########## Web API & Tools ##########
-# Client Portal API 专用域名，量化/第三方工具必用
 DOMAIN,api.ibkr.com
+DOMAIN-SUFFIX,ibkrguides.com
 
-########## Official Websites (官网/账户管理) ##########
+########## Official Websites / Account Management ##########
 DOMAIN-SUFFIX,interactivebrokers.com
 DOMAIN-SUFFIX,ibkr.com
 DOMAIN-SUFFIX,ibkr.info
 
-########## Regional Portals (区域入口) ##########
-# 仅保留实际存在的业务入口
+########## Regional Portals ##########
+# Hong Kong
 DOMAIN-SUFFIX,interactivebrokers.com.hk
+DOMAIN-SUFFIX,ibkr.com.hk
 DOMAIN-SUFFIX,ibkr.hk
+
+# United Kingdom / Ireland
 DOMAIN-SUFFIX,interactivebrokers.co.uk
 DOMAIN-SUFFIX,ibkr.co.uk
-DOMAIN-SUFFIX,interactivebrokers.com.au
+DOMAIN-SUFFIX,interactivebrokers.ie
+DOMAIN-SUFFIX,ibkr.ie
+
+# European Union
 DOMAIN-SUFFIX,interactivebrokers.eu
 DOMAIN-SUFFIX,ibkr.eu
 
-########## China Web (国内网页) ##########
+# Canada
+DOMAIN-SUFFIX,interactivebrokers.ca
+DOMAIN-SUFFIX,ibkr.ca
+
+# Australia
+DOMAIN-SUFFIX,interactivebrokers.com.au
+DOMAIN-SUFFIX,ibkr.com.au
+
+# Singapore
+DOMAIN-SUFFIX,interactivebrokers.com.sg
+DOMAIN-SUFFIX,ibkr.com.sg
+
+# India
+DOMAIN-SUFFIX,interactivebrokers.co.in
+DOMAIN-SUFFIX,ibkr.co.in
+
+# Japan
+DOMAIN-SUFFIX,interactivebrokers.co.jp
+
+########## China Web ##########
 DOMAIN-SUFFIX,interactivebrokers.com.cn
 DOMAIN-SUFFIX,ibkr.com.cn

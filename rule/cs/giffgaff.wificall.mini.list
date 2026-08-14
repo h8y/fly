@@ -1,15 +1,12 @@
-# NAME: Giffgaff + Wi-Fi Calling (Full)
+# NAME: Giffgaff + Wi-Fi Calling (Mini)
 # UPDATED: 2026-08-14
 # FORMAT: TEXT
 # COMPATIBILITY: Loon, Shadowrocket, Mihomo/Clash.Meta (behavior=classical, format=text)
-# NOTE: Full version includes Apple region-detection endpoint.
+# NOTE: Mini version intentionally excludes Apple region-detection endpoint.
 
 ########## Giffgaff Web ##########
 DOMAIN-SUFFIX,giffgaff.com
 DOMAIN-SUFFIX,giffgaff.design
-
-########## Apple Region Detection ##########
-DOMAIN-SUFFIX,gspe1-ssl.ls.apple.com
 
 ########## Vodafone / Giffgaff Wi-Fi Calling ##########
 DOMAIN-SUFFIX,epdg.epc.mnc015.mcc234.pub.3gppnetwork.org
